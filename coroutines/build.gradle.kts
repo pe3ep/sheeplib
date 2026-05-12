@@ -8,7 +8,7 @@ plugins {
 
 dependencies {
     compileOnlyApi(libs.kotlin.coroutines) // provided by fabric language kotlin
-    api(project(":api", configuration = "namedElements"))
+    api(project(":api"))
 }
 
 tasks {

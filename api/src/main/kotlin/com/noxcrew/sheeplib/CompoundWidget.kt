@@ -1,9 +1,8 @@
 package com.noxcrew.sheeplib
 
 import net.minecraft.client.gui.ComponentPath
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
-import net.minecraft.client.gui.components.Renderable
 import net.minecraft.client.gui.components.events.ContainerEventHandler
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.layouts.Layout
@@ -41,9 +40,9 @@ public abstract class CompoundWidget(x: Int, y: Int, width: Int, height: Int) :
     /**
      * Renders the widget's background and each of its children.
      */
-    override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         for (it in children) {
-            if (it is Renderable) it.render(graphics, i, j, f)
+            if (it is AbstractWidget) it.extractRenderState(graphics, i, j, f)
         }
     }
 

@@ -1,11 +1,10 @@
 package com.noxcrew.sheeplib.widget
 
-import com.mojang.blaze3d.systems.RenderSystem
 import com.noxcrew.sheeplib.dialog.Dialog
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.input.MouseButtonEvent
@@ -50,7 +49,7 @@ public open class ThemedButton(
      */
     protected open fun maxTextWidth(): Int = width - theme.dimensions.paddingInner * 2
 
-    override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         val minecraft = Minecraft.getInstance()
         val isHovered = isHovered()
         graphics.fill(
@@ -72,7 +71,7 @@ public open class ThemedButton(
         when {
             messageWidth > maxWidth && scrollText -> {
                 val renderer = graphics.textRendererForWidget(
-                    this, GuiGraphics.HoveredTextEffects.TOOLTIP_AND_CURSOR
+                    this, GuiGraphicsExtractor.HoveredTextEffects.TOOLTIP_AND_CURSOR
                 )
                 renderer.acceptScrolling(
                     message,
@@ -85,12 +84,12 @@ public open class ThemedButton(
                 )
             }
 
-            centreText -> graphics.drawCenteredString(minecraft.font, message, x + 1 + width / 2, y, color)
+            centreText -> graphics.centeredText(minecraft.font, message, x + 1 + width / 2, y, color)
 
-            else -> graphics.drawString(minecraft.font, message, x + theme.dimensions.paddingInner, y, color)
+            else -> graphics.text(minecraft.font, message, x + theme.dimensions.paddingInner, y, color)
         }
 
-        if (isHovered && isActive) graphics.renderComponentHoverEffect(minecraft.font, message.style, i, j)
+        if (isHovered && isActive) graphics.componentHoverEffect(minecraft.font, message.style, i, j)
     }
 
     /**

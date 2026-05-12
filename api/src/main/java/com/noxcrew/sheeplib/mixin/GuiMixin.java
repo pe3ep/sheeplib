@@ -4,7 +4,7 @@ import com.noxcrew.sheeplib.DialogContainer;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.ChatScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,15 +23,15 @@ public class GuiMixin {
     private Minecraft minecraft;
 
     @Inject(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/Gui;renderTabList(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V"
+                    target = "Lnet/minecraft/client/gui/Gui;extractTabList(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V"
             ))
-    public void render(GuiGraphics graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         // Only render when not in a chat screen, otherwise chat is rendered over the top of dialogs.
         if (!(this.minecraft.screen instanceof ChatScreen)) {
-            DialogContainer.INSTANCE.render(graphics, 0, 0, deltaTracker.getGameTimeDeltaTicks());
+            DialogContainer.INSTANCE.extractRenderState(graphics, 0, 0, deltaTracker.getGameTimeDeltaTicks());
         }
     }
 }

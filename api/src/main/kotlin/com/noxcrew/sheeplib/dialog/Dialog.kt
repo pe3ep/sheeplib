@@ -9,7 +9,7 @@ import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.input.MouseButtonEvent
@@ -63,7 +63,7 @@ public abstract class Dialog(
         try {
             dialog.initIfNeeded()
         } catch (ex: Throwable) {
-            Minecraft.getInstance().gui.chat.addMessage(
+            Minecraft.getInstance().gui.chat.addClientSystemMessage(
                 Component.translatable("sheeplib.error").withStyle { it.withColor(ChatFormatting.RED) }
             )
             LoggerFactory.getLogger("SheepLib").error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())
@@ -198,7 +198,7 @@ public abstract class Dialog(
      * The default implementation renders an opaque [Theme.Colors.dialogBackground] background with a
      * [Theme.Colors.border] border.
      */
-    protected open fun renderBackground(graphics: GuiGraphics) {
+    protected open fun renderBackground(graphics: GuiGraphicsExtractor) {
         val baseColor = if (parent == null) theme.colors.dialogBackgroundAlt else theme.colors.dialogBackground
         graphics.fill(
             RenderPipelines.GUI,
@@ -225,7 +225,7 @@ public abstract class Dialog(
         }
     }
 
-    override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         renderBackground(graphics)
 
         // Ensure none of the elements in the child widget can be focused
@@ -242,13 +242,13 @@ public abstract class Dialog(
             // most common so worth overriding.
             val override = (graphics as GuiGraphicsExt).`sheeplib$getTextOpacityOverride`()
             (graphics as GuiGraphicsExt).`sheeplib$setTextOpacityOverride`(POPUP_FOCUSED_OPACITY)
-            super.renderWidget(graphics, i, j, f)
+            super.extractWidgetRenderState(graphics, i, j, f)
             (graphics as GuiGraphicsExt).`sheeplib$setTextOpacityOverride`(override)
         } else {
-            super.renderWidget(graphics, i, j, f)
+            super.extractWidgetRenderState(graphics, i, j, f)
         }
 
-        popup?.render(graphics, i, j, f)
+        popup?.extractRenderState(graphics, i, j, f)
     }
 
     internal companion object {

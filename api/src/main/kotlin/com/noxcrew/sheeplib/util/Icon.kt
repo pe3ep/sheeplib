@@ -1,6 +1,6 @@
 package com.noxcrew.sheeplib.util
 
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.resources.Identifier
 
@@ -22,12 +22,12 @@ public data class Icon(
     /**
      * Blits the texture onto the screen.
      *
-     * @param guiGraphics a [GuiGraphics] instance to render with
+     * @param guiGraphics a [GuiGraphicsExtractor] instance to render with
      * @param x the X coordinate to blit to (left edge)
      * @param y the Y coordinate to blit to (top edge)
      * @param scale a factor to scale the icon up by. Defaults to 1.
      */
-    public fun blit(guiGraphics: GuiGraphics, x: Int, y: Int, scale: Int = 1, isHovered: Boolean = false) {
+    public fun blit(guiGraphics: GuiGraphicsExtractor, x: Int, y: Int, scale: Int = 1, isHovered: Boolean = false) {
         guiGraphics.blit(
             RenderPipelines.GUI_TEXTURED,
             if (isHovered) hoverLocation else location,

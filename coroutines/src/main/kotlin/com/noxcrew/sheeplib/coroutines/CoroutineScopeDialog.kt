@@ -1,7 +1,6 @@
 package com.noxcrew.sheeplib.coroutines
 
 import com.noxcrew.sheeplib.dialog.Dialog
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
@@ -15,6 +14,7 @@ import org.jetbrains.annotations.ApiStatus
 import org.jetbrains.annotations.MustBeInvokedByOverriders
 import org.slf4j.LoggerFactory
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.cancellation.CancellationException
 import kotlin.reflect.jvm.jvmName
 
 /** A dialog with its own [CoroutineContext], which is cancelled when the dialog is closed. */
@@ -30,7 +30,7 @@ public abstract class CoroutineScopeDialog(
                 CoroutineName("$this") +
                 dispatcher +
                 CoroutineExceptionHandler { _, ex ->
-                    Minecraft.getInstance().gui.chat.addMessage(
+                    Minecraft.getInstance().gui.chat.addClientSystemMessage(
                         Component.translatable("sheeplib.error.coroutine").withStyle { it.withColor(ChatFormatting.RED) }
                     )
                     LoggerFactory.getLogger("SheepLib").error("Exception caught in dialog coroutine scope (${this::class.jvmName}):\n" + ex.stackTraceToString())

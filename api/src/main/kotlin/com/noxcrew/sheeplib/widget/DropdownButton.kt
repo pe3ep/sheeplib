@@ -6,8 +6,7 @@ import com.noxcrew.sheeplib.layout.linear
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.util.withOuterPadding
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.client.gui.components.StringWidget
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.client.input.MouseButtonEvent
@@ -64,9 +63,9 @@ public class DropdownButton<T : Any>(
     /** Whether the button has an open selection popup. */
     private fun isOpen() = selectionPopup != null && parent.popup == selectionPopup
 
-    override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         if (!isOpen()) {
-            super.renderWidget(graphics, i, j, f)
+            super.extractWidgetRenderState(graphics, i, j, f)
             theme.icons.dropdown.let {
                 it.blit(
                     graphics,
@@ -94,7 +93,7 @@ public class DropdownButton<T : Any>(
         private var scroll = 0
         private var pageSize = 0
 
-        override fun renderBackground(graphics: GuiGraphics) {
+        override fun renderBackground(graphics: GuiGraphicsExtractor) {
             if (pageSize >= options.size) return
             val scrollbarHeight = (height * pageSize.toFloat() / options.size).roundToInt()
             val scrollbarY = y + ((height - scrollbarHeight) * scroll / (options.size - pageSize))

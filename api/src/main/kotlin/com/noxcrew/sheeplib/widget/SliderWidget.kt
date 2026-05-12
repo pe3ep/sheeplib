@@ -1,7 +1,7 @@
 package com.noxcrew.sheeplib.widget
 
 import com.noxcrew.sheeplib.theme.Themed
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.input.MouseButtonEvent
@@ -64,7 +64,7 @@ public class SliderWidget(
 
     override fun onClick(mouseButtonEvent: MouseButtonEvent, bl: Boolean): Unit = updatePosition(mouseButtonEvent.x.toInt())
     override fun onDrag(mouseButtonEvent: MouseButtonEvent, d: Double, e: Double): Unit = updatePosition(mouseButtonEvent.x.toInt())
-    override fun renderWidget(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(guiGraphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         guiGraphics.fill(x, y + (HEIGHT / 2 - 1), x + width, y + (HEIGHT / 2 + 1), theme.colors.textSecondary)
 
         val lineX = x + offsets[currentIndex]

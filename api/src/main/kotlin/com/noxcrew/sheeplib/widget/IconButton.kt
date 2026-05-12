@@ -2,7 +2,7 @@ package com.noxcrew.sheeplib.widget
 
 import com.noxcrew.sheeplib.util.Icon
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.input.MouseButtonEvent
@@ -25,7 +25,7 @@ public class IconButton(
     private val clickHandler: (x: Int, y: Int) -> Unit,
 ) :
     AbstractWidget(0, 0, icon.width + marginX * 2, icon.height + marginY * 2, Component.empty()) {
-    override fun renderWidget(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(guiGraphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         icon.blit(guiGraphics, x + marginX, y + marginY, isHovered = isHovered())
         if (isHovered() && hoverText != null) {
             guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, hoverText, x, y)

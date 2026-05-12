@@ -4,9 +4,8 @@ import com.noxcrew.sheeplib.dialog.Dialog
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
 import net.minecraft.ChatFormatting
-import net.minecraft.client.DeltaTracker
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Renderable
 import net.minecraft.client.gui.components.events.ContainerEventHandler
 import net.minecraft.client.gui.components.events.GuiEventListener
@@ -36,13 +35,13 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
     private var isDragging: Boolean = false
 
     /** Renders all opened dialogs. */
-    public override fun render(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    public override fun extractRenderState(guiGraphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         val cursorIsActive = minecraft?.screen is ChatScreen
 
         val childX = if (cursorIsActive) minecraft.mouseHandler.getScaledXPos(minecraft.window) else -1
         val childY = if (cursorIsActive) minecraft.mouseHandler.getScaledYPos(minecraft.window) else -1
         children.value.forEach {
-            (it as Renderable).render(guiGraphics, childX.toInt(), childY.toInt(), f)
+            (it as Renderable).extractRenderState(guiGraphics, childX.toInt(), childY.toInt(), f)
         }
     }
 
@@ -56,7 +55,7 @@ public object DialogContainer : ContainerEventHandler, NarratableEntry, Renderab
                 dialog.initIfNeeded()
                 focused = dialog
             } catch (ex: Throwable) {
-                Minecraft.getInstance().gui.chat.addMessage(
+                Minecraft.getInstance().gui.chat.addClientSystemMessage(
                     Component.translatable("sheeplib.error").withStyle { it.withColor(ChatFormatting.RED) }
                 )
                 logger.error("Exception while initialising ${dialog::class.jvmName}:\n" + ex.stackTraceToString())

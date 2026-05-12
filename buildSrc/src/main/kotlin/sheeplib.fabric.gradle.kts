@@ -2,7 +2,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
-    id("fabric-loom")
+    id("net.fabricmc.fabric-loom")
     kotlin("jvm")
 }
 
@@ -15,7 +15,7 @@ internal val Project.libs get() = project.extensions.getByName("libs") as Librar
 
 kotlin {
     explicitApi()
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
 
 tasks {
@@ -40,9 +40,8 @@ repositories {
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(loom.officialMojangMappings())
 
-//    modImplementation(libs.fabric.api)
-    modImplementation(libs.fabric.loader)
-    modImplementation(libs.fabric.kotlin)
+    implementation(libs.fabric.api)
+    implementation(libs.fabric.loader)
+    implementation(libs.fabric.kotlin)
 }

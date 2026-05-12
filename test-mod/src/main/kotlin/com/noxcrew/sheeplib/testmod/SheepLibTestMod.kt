@@ -6,8 +6,8 @@ import com.noxcrew.sheeplib.DialogContainer
 import com.noxcrew.sheeplib.dialog.PromptDialog
 import com.noxcrew.sheeplib.theme.Theme
 import net.fabricmc.api.ClientModInitializer
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 import net.minecraft.network.chat.Component.literal
 
@@ -39,9 +39,9 @@ public object SheepLibTestMod : ClientModInitializer {
     )
 
 
-    private val COMMAND: LiteralArgumentBuilder<FabricClientCommandSource> = ClientCommandManager.literal("sheeplib")
-        .then(ClientCommandManager.literal("open").then(
-            ClientCommandManager.argument("dialog", StringArgumentType.string())
+    private val COMMAND: LiteralArgumentBuilder<FabricClientCommandSource> = ClientCommands.literal("sheeplib")
+        .then(ClientCommands.literal("open").then(
+            ClientCommands.argument("dialog", StringArgumentType.string())
                 .suggests { _, builder ->
                     dialogs.keys.forEach(builder::suggest)
                     builder.buildFuture()

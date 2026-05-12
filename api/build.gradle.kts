@@ -10,6 +10,10 @@ plugins {
     `maven-publish`
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/sheeplib.classTweaker")
+}
+
 buildscript {
     dependencies {
         classpath("org.jetbrains.dokka:dokka-base:1.8.20")

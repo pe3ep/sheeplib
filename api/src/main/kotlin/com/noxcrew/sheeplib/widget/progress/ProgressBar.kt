@@ -1,7 +1,7 @@
 package com.noxcrew.sheeplib.widget.progress
 
 import com.noxcrew.sheeplib.theme.Themed
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
@@ -30,7 +30,7 @@ public class ProgressBar(width: Int, height: Int, theme: Themed, initialProgress
      * Whether the progress bar is paused. If true, progress will not be displayed.
      */
     public var paused: Boolean = false
-    override fun renderWidget(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(guiGraphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
         guiGraphics.fill(x, y, x + width, y + height, theme.colors.widgetBackgroundSecondary)
         guiGraphics.fill(x, y, x + (width * progress).roundToInt(), y + height, theme.colors.textPrimary)
     }

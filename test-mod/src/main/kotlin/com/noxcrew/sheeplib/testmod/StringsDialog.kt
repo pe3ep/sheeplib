@@ -3,14 +3,11 @@ package com.noxcrew.sheeplib.testmod
 import com.noxcrew.sheeplib.dialog.Dialog
 import com.noxcrew.sheeplib.dialog.title.DialogTitleWidget
 import com.noxcrew.sheeplib.dialog.title.TextTitleWidget
-import com.noxcrew.sheeplib.layout.LinearLayout
 import com.noxcrew.sheeplib.layout.linear
 import com.noxcrew.sheeplib.theme.Theme
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.util.ComponentBuilder
 import com.noxcrew.sheeplib.widget.TextWidgets
-import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.components.MultiLineTextWidget
 import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.Layout
 import net.minecraft.client.gui.layouts.LinearLayout

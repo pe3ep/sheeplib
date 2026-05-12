@@ -7,10 +7,14 @@ public interface AbstractWidgetExt {
     /**
      * Returns whether this widget can be hovered over.
      */
-    boolean sheeplib$isHoverable();
+    default boolean sheeplib$isHoverable() {
+        throw new AssertionError("Implemented in Mixin");
+    }
 
     /**
      * Sets whether this widget can be hovered over.
      */
-    void sheeplib$setHoverable(boolean hoverable);
+    default void sheeplib$setHoverable(boolean hoverable) {
+        throw new AssertionError("Implemented in Mixin");
+    }
 }

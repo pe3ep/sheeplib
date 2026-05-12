@@ -6,7 +6,7 @@ import com.noxcrew.sheeplib.layout.CanvasLayout
 import com.noxcrew.sheeplib.theme.Themed
 import com.noxcrew.sheeplib.widget.IconButton
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.navigation.ScreenRectangle
 import net.minecraft.network.chat.Component
@@ -65,10 +65,10 @@ public class TextTitleWidget(
     }
 
 
-    override fun renderWidget(graphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, i: Int, j: Int, f: Float) {
 //        graphics.fill(x, y + height, x + getWidth(), y + height + 1, theme.colors.border)
-        graphics.hLine(x, x + getWidth() - 1, y + height, theme.colors.border)
-        super.renderWidget(graphics, i, j, f)
+        graphics.horizontalLine(x, x + getWidth() - 1, y + height, theme.colors.border)
+        super.extractWidgetRenderState(graphics, i, j, f)
     }
 
     override fun onDialogResize() {

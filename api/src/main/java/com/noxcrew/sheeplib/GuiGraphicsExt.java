@@ -1,7 +1,7 @@
 package com.noxcrew.sheeplib;
 
 /**
- * An extension to {@link net.minecraft.client.gui.GuiGraphics} to allow overriding text opacity.
+ * An extension to {@link net.minecraft.client.gui.GuiGraphicsExtractor} to allow overriding text opacity.
  */
 public interface GuiGraphicsExt {
     /**
